@@ -34,14 +34,14 @@
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            width: 22%; /* Adjusted to fit more items in a row */
+            width: 22%;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             text-align: center;
         }
         .product img {
-            width: 100px; /* Fixed width */
-            height: 100px; /* Fixed height */
-            object-fit: cover; /* Maintain aspect ratio */
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
             border-radius: 5px;
             margin-bottom: 10px;
         }
@@ -54,6 +54,10 @@
             font-size: 0.9em;
             color: #666;
             margin: 0;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
         }
         .buy-button {
             background-color: #4CAF50;
@@ -83,6 +87,9 @@
             <p>Rs. 1200.00</p>
             <input type="checkbox" id="product1" name="product1" value="1200.00">
             <label for="product1"> Select</label>
+            <br>
+            <label for="quantity1">Qty:</label>
+            <input type="number" id="quantity1" name="quantity1" value="1" min="1" class="quantity-input">
             <img src="p1.png" alt="Product 1 Image">
         </div>
         <div class="product">
@@ -90,6 +97,9 @@
             <p>Rs. 250.00</p>
             <input type="checkbox" id="product2" name="product2" value="250.00">
             <label for="product2"> Select</label>
+            <br>
+            <label for="quantity2">Qty:</label>
+            <input type="number" id="quantity2" name="quantity2" value="1" min="1" class="quantity-input">
             <img src="p4.jpg" alt="Product 2 Image">
         </div>
         <div class="product">
@@ -97,15 +107,20 @@
             <p>Rs. 1350.00</p>
             <input type="checkbox" id="product3" name="product3" value="1350.00">
             <label for="product3"> Select</label>
+            <br>
+            <label for="quantity3">Qty:</label>
+            <input type="number" id="quantity3" name="quantity3" value="1" min="1" class="quantity-input">
             <img src="p2.png" alt="Product 3 Image">
         </div>
         <!-- Add more products similarly -->
-        <!-- ... -->
         <div class="product">
             <h2>Hair Duster</h2>
             <p>Rs. 450.00</p>
             <input type="checkbox" id="product20" name="product20" value="450.00">
             <label for="product20"> Select</label>
+            <br>
+            <label for="quantity20">Qty:</label>
+            <input type="number" id="quantity20" name="quantity20" value="1" min="1" class="quantity-input">
             <img src="p3.jpg" alt="Product 20 Image">
         </div>
     </div>
@@ -133,10 +148,13 @@
 
         for (let i = 1; i <= 20; i++) {
             const checkbox = document.getElementById(`product${i}`);
-            if (checkbox && checkbox.checked) {
+            const quantityInput = document.getElementById(`quantity${i}`);
+            if (checkbox && checkbox.checked && quantityInput) {
                 const price = parseFloat(checkbox.value);
-                selectedProducts.push(`Product ${i}: Rs. ${price.toFixed(2)}`);
-                total += price;
+                const quantity = parseInt(quantityInput.value) || 1;
+                const totalPrice = price * quantity;
+                selectedProducts.push(`Product ${i}: Rs. ${price.toFixed(2)} x ${quantity} = Rs. ${totalPrice.toFixed(2)}`);
+                total += totalPrice;
             }
         }
 
