@@ -39,8 +39,8 @@
             text-align: center;
         }
         .product img {
-            width: 100px;
-            height: 100px;
+            width: 150px; /* Focus on the image by enlarging it */
+            height: 150px;
             object-fit: cover;
             border-radius: 5px;
             margin-bottom: 10px;
@@ -56,8 +56,9 @@
             margin: 0;
         }
         .quantity-input {
-            width: 50px;
+            width: 30px; /* Reduced the width further for a smaller look */
             text-align: center;
+            margin-top: 5px;
         }
         .buy-button {
             background-color: #4CAF50;
@@ -88,9 +89,9 @@
             <input type="checkbox" id="product1" name="product1" value="1200.00">
             <label for="product1"> Select</label>
             <br>
+            <img src="p1.png" alt="Product 1 Image">
             <label for="quantity1">Qty:</label>
             <input type="number" id="quantity1" name="quantity1" value="1" min="1" class="quantity-input">
-            <img src="p1.png" alt="Product 1 Image">
         </div>
         <div class="product">
             <h2>Red Rose - Rollar</h2>
@@ -98,9 +99,9 @@
             <input type="checkbox" id="product2" name="product2" value="250.00">
             <label for="product2"> Select</label>
             <br>
+            <img src="p4.jpg" alt="Product 2 Image">
             <label for="quantity2">Qty:</label>
             <input type="number" id="quantity2" name="quantity2" value="1" min="1" class="quantity-input">
-            <img src="p4.jpg" alt="Product 2 Image">
         </div>
         <div class="product">
             <h2>Fogg 150ml - OAK</h2>
@@ -108,9 +109,9 @@
             <input type="checkbox" id="product3" name="product3" value="1350.00">
             <label for="product3"> Select</label>
             <br>
+            <img src="p2.png" alt="Product 3 Image">
             <label for="quantity3">Qty:</label>
             <input type="number" id="quantity3" name="quantity3" value="1" min="1" class="quantity-input">
-            <img src="p2.png" alt="Product 3 Image">
         </div>
         <!-- Add more products similarly -->
         <div class="product">
@@ -119,9 +120,9 @@
             <input type="checkbox" id="product20" name="product20" value="450.00">
             <label for="product20"> Select</label>
             <br>
+            <img src="p3.jpg" alt="Product 20 Image">
             <label for="quantity20">Qty:</label>
             <input type="number" id="quantity20" name="quantity20" value="1" min="1" class="quantity-input">
-            <img src="p3.jpg" alt="Product 20 Image">
         </div>
     </div>
     <br>
@@ -149,12 +150,12 @@
         for (let i = 1; i <= 20; i++) {
             const checkbox = document.getElementById(`product${i}`);
             const quantityInput = document.getElementById(`quantity${i}`);
-            if (checkbox && checkbox.checked && quantityInput) {
+            if (checkbox && checkbox.checked) {
                 const price = parseFloat(checkbox.value);
-                const quantity = parseInt(quantityInput.value) || 1;
-                const totalPrice = price * quantity;
-                selectedProducts.push(`Product ${i}: Rs. ${price.toFixed(2)} x ${quantity} = Rs. ${totalPrice.toFixed(2)}`);
-                total += totalPrice;
+                const quantity = parseInt(quantityInput.value);
+                const linePrice = price * quantity;
+                selectedProducts.push(`Product ${i}: Qty: ${quantity}, Rs. ${linePrice.toFixed(2)}`);
+                total += linePrice;
             }
         }
 
