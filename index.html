@@ -10,13 +10,14 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
+            background-color: #f4f4f4;
         }
         header {
             background-color: #4CAF50;
             color: white;
             text-align: center;
             padding: 20px;
+            border-bottom: 2px solid #ccc;
         }
         .container {
             max-width: 1200px;
@@ -35,16 +36,19 @@
             border-radius: 5px;
             width: 22%; /* Adjusted to fit more items in a row */
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
         }
         .product img {
-            max-width: 100%;
-            height: auto;
+            width: 100px; /* Fixed width */
+            height: 100px; /* Fixed height */
+            object-fit: cover; /* Maintain aspect ratio */
             border-radius: 5px;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
         .product h2 {
-            font-size: 1.2em;
+            font-size: 1em;
             margin: 0 0 10px;
+            color: #333;
         }
         .product p {
             font-size: 0.9em;
@@ -54,10 +58,11 @@
         .buy-button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px;
+            padding: 10px 20px;
             border: none;
             cursor: pointer;
             border-radius: 5px;
+            font-size: 1em;
         }
         .buy-button:hover {
             background-color: #45a049;
@@ -117,8 +122,7 @@
         // Header
         doc.text("TheSeller.lk", 10, 10);
         doc.setFontSize(12);
-        doc.text("Contact: info@theseller.lk | +123 456 7890", 10, 20);
-        doc.text("Address: 123 Market St, City, Country", 10, 25);
+        doc.text("Contact: info@theseller.lk | +94 70 366 9199", 10, 20);
         doc.text("Invoice", 10, 40);
         doc.setFontSize(10);
         doc.text("Date: " + new Date().toLocaleDateString(), 10, 50);
@@ -151,7 +155,7 @@
             // Footer
             yOffset += 20;
             doc.text("Thank you for shopping with us!", 10, yOffset);
-            doc.text("For any queries, please contact us at info@theseller.lk", 10, yOffset + 10);
+            doc.text("For any queries, please contact us at TheSeller.lk", 10, yOffset + 10);
 
             // Save the PDF
             doc.save("invoice.pdf");
