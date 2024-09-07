@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TheSeller.lk</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product {
+            background-color: white;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 22%; /* Adjusted to fit more items in a row */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .product h2 {
+            font-size: 1.2em;
+            margin: 0 0 10px;
+        }
+        .product p {
+            font-size: 0.9em;
+            color: #666;
+            margin: 0;
+        }
+        .product label {
+            display: block;
+            margin: 10px 0;
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            margin: 5px 0;
+        }
+        .buy-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .buy-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>TheSeller.lk</h1>
+</header>
+
+<div class="container">
+    <div class="product-list">
+        <!-- Product items -->
+        <div class="product">
+            <h2>Fogg 120ml</h2>
+            <p>Rs. 1200.00</p>
+            <input type="checkbox" id="product1" name="product1" value="1200.00">
+            <label for="product1"> Select Quantity:</label>
+            <input type="number" id="quantity1" class="quantity-input" value="1" min="1">
+            <img src="p1.png" alt="Product 1 Image">
+        </div>
+        <div class="product">
+            <h2>Red Rose - Rollar</h2>
+            <p>Rs. 250.00</p>
+            <input type="checkbox" id="product2" name="product2" value="250.00">
+            <label for="product2"> Select Quantity:</label>
+            <input type="number" id="quantity2" class="quantity-input" value="1" min="1">
+            <img src="p4.jpg" alt="Product 2 Image">
+        </div>
+        <div class="product">
+            <h2>Fogg 150ml - OAK</h2>
+            <p>Rs. 1350.00</p>
+            <input type="checkbox" id="product3" name="product3" value="1350.00">
+            <label for="product3"> Select Quantity:</label>
+            <input type="number" id="quantity3" class="quantity-input" value="1" min="1">
+            <img src="p2.png" alt="Product 3 Image">
+        </div>
+        <!-- Add more products similarly -->
+        <!-- ... -->
+        <div class="product">
+            <h2>Hair Duster</h2>
+            <p>Rs. 450.00</p>
+            <input type="checkbox" id="product20" name="product20" value="450.00">
+            <label for="product20"> Select Quantity:</label>
+            <input type="number" id="quantity20" class="quantity-input" value="1" min="1">
+            <img src="p3.jpg" alt="Product 20 Image">
+        </div>
+    </div>
+    <br>
+    <button class="buy-button" onclick="generateInvoice()">Generate PDF Invoice</button>
+</div>
+
+<script>
+    function generateInvoice() {
+        const selectedProducts = [];
+        let total = 0;
+
+        for (let i = 1; i <= 20; i++) {
+            const checkbox = document.getElementById(`product${i}`);
+            const quantityInput = document.getElementById(`quantity${i}`);
+            if (checkbox && checkbox.checked) {
+                const price = parseFloat(checkbox.value);
+                const quantity = parseInt(quantityInput.value, 10);
+                const subtotal = price * quantity;
+                selectedProducts.push(`Product ${i}: Rs. ${price.toFixed(2)} x ${quantity} = Rs. ${subtotal.toFixed(2)}`);
+                total += subtotal;
+            }
+        }
+
+        if (selectedProducts.length === 0) {
+            alert('Please select at least one product.');
+        } else {
+            // Generate PDF with jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFontSize(16);
+            doc.text("Invoice", 10, 10);
+            doc.setFontSize(12);
+            doc.text("You have selected the following products:", 10, 20);
+
+            let yOffset = 30;
+            selectedProducts.forEach(product => {
+                doc.text(product, 10, yOffset);
+                yOffset += 10;
+            });
+
+            // Add total
+            doc.text(`Total: Rs. ${total.toFixed(2)}`, 10, yOffset);
+
+            // Save the PDF
+            doc.save("invoice.pdf");
+        }
+    }
+</script>
+
+</body>
+</html>
